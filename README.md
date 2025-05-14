@@ -2,6 +2,11 @@
 Use Discord Components with style. This is designed for Oceanic.js but has no runtime dependencies!
 If support for raw components is added in future, it certainly should support Discord.js and Dysnomia too.
 
+```
+npm install oceanic-component-helper
+pnpm install oceanic-component-helper
+```
+
 ## Usage
 
 Usage Example:
