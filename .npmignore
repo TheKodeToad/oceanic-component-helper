@@ -1,0 +1,6 @@
+/examples/
+/src/
+/.github/
+tsconfig.json
+.vscode/
+.idea/
