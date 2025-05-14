@@ -68,7 +68,7 @@ The available component functions do not entirely reflect the Oceanic interfaces
 - `TextDisplay` is shortened to `Text`
 - `MediaGallery` is shortened to `Gallery`
 - `Separator` is seperated (haha) into `Divider` and `Spacer` for `{ divider: true | undefined }` and `{ divider: false }` respectively.
-- `TextInput` is separated by type: `ShortTextInput` and `ParagraphTextInput`
+- `TextInput` is separated by type: `LineInput` and `ParagraphInput`
 
 ## Pitfalls
 - Imports may conflict with type imports from oceanic.

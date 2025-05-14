@@ -84,7 +84,7 @@ export type TextInputProps = Omit<TextInput, "label" | "customID" | "style" | "t
  * @param props optional properties (id, maxLength, minLength, placeholder, required, value)
  * @returns a {@link TextInput} object
  */
-export function ShortTextInput(label: string, customID: string, props?: TextInputProps): TextInput {
+export function LineInput(label: string, customID: string, props?: TextInputProps): TextInput {
 	return { ...props, label, customID, style: 1 /* .SHORT */, type: 4 };
 }
 
@@ -96,7 +96,7 @@ export function ShortTextInput(label: string, customID: string, props?: TextInpu
  * @param props optional properties (id, maxLength, minLength, placeholder, required, value)
  * @returns a {@link TextInput} object
  */
-export function ParagraphTextInput(label: string, customID: string, props?: TextInputProps): TextInput {
+export function ParagraphInput(label: string, customID: string, props?: TextInputProps): TextInput {
 	return { ...props, label, customID, style: 2, type: 4 };
 }
 
