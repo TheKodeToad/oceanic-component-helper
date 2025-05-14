@@ -6,6 +6,10 @@
   "author": "TheKodeToad",
   "license": "MIT",
   "packageManager": "pnpm@10.7.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheKodeToad/oceanic-component-helper.git"
+  }
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
