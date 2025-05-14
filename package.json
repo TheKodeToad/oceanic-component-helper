@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TheKodeToad/oceanic-component-helper.git"
-  }
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
