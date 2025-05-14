@@ -7,8 +7,8 @@ export type ActionRowProps = Omit<ActionRowBase<never>, "components" | "type">;
 /**
  * Create an  {@link ComponentTypes.ACTION_ROW | ACTION_ROW} component.
  * @param items a list of message or modal components
- * @param props optional properties (disabled, id)
- * @returns an {@link ActionRowBase} object with item type infered.
+ * @param props optional properties (id)
+ * @returns an {@link ActionRowBase} object with item type inferred.
  */
 export function ActionRow<T extends Component>(items: T[] = [], props?: ActionRowProps): ActionRowBase<T> {
 	// enums are inlined so there are no runtime dependencies
@@ -35,7 +35,7 @@ export type URLButtonProps = Omit<URLButton, "label" | "url" | "style" | "type" 
  * Create a {@link ComponentTypes.BUTTON | BUTTON} component with the {@link ButtonStyles.LINK | LINK} style.
  * @param label text to display on the button
  * @param url URL to open on click
- * @param props optional properties (disabled, emoji)
+ * @param props optional properties (disabled, emoji, id)
  * @returns a {@link URLButton} object
  */
 export function URLButton(label: string, url: string, props?: URLButtonProps): URLButton {
@@ -47,7 +47,7 @@ export type PremiumButtonProps = Omit<PremiumButton, "skuID" | "style" | "type" 
 /**
  * Create a {@link ComponentTypes.BUTTON | BUTTON} component with the {@link ButtonStyles.PREMIUM | PREMIUM} style.
  * @param skuID identifier for a purchasable [SKU](https://discord.com/developers/docs/resources/sku)
- * @param props optional properties (disabled, emoji)
+ * @param props optional properties (disabled, id)
  * @returns a {@link PremiumButton} object
  */
 export function PremiumButton(skuID: string, props?: PremiumButtonProps): PremiumButton {
@@ -97,7 +97,7 @@ export function LineInput(label: string, customID: string, props?: TextInputProp
  * @returns a {@link TextInput} object
  */
 export function ParagraphInput(label: string, customID: string, props?: TextInputProps): TextInput {
-	return { ...props, label, customID, style: 2, type: 4 };
+	return { ...props, label, customID, style: 2 /* .PARAGRAPH */, type: 4 };
 }
 
 export type UserSelectProps = Omit<UserSelectMenu, "customID" | "type">;
@@ -106,7 +106,7 @@ export type UserSelectProps = Omit<UserSelectMenu, "customID" | "type">;
  * Create a {@link ComponentTypes.USER_SELECT | USER_SELECT} component.
  * Selection can be handled with {@link ClientEvents.interactionCreate}.
  * @param customID custom ID to handle interactions
- * @param props optional properties (disabled, id, maxValues, minValues, placeholder, defaultValues)
+ * @param props optional properties (defaultValues, disabled, id, maxValues, minValues, placeholder)
  * @returns a {@link UserSelectMenu} object
  */
 export function UserSelect(customID: string, props?: UserSelectProps): UserSelectMenu {
@@ -119,7 +119,7 @@ export type RoleSelectProps = Omit<RoleSelectMenu, "customID" | "type">;
  * Create a {@link ComponentTypes.ROLE_SELECT | ROLE_SELECT} component.
  * Selection can be handled with {@link ClientEvents.interactionCreate}.
  * @param customID custom ID to handle interactions
- * @param props optional properties (disabled, id, maxValues, minValues, placeholder, defaultValues)
+ * @param props optional properties (defaultValues, disabled, id, maxValues, minValues, placeholder)
  * @returns a {@link RoleSelectMenu} object
  */
 export function RoleSelect(customID: string, props?: RoleSelectProps): RoleSelectMenu {
@@ -132,7 +132,7 @@ export type MentionableSelectProps = Omit<MentionableSelectMenu, "customID" | "t
  * Create a {@link ComponentTypes.MENTIONABLE_SELECT | MENTIONABLE_SELECT} component.
  * Selection can be handled with {@link ClientEvents.interactionCreate}.
  * @param customID custom ID to handle interactions
- * @param props optional properties (disabled, id, maxValues, minValues, placeholder, defaultValues)
+ * @param props optional properties (defaultValues, disabled, id, maxValues, minValues, placeholder)
  * @returns a {@link RoleSelectMenu} object
  */
 export function MentionableSelect(customID: string, props?: MentionableSelectProps): MentionableSelectMenu {
@@ -145,7 +145,7 @@ export type ChannelSelectProps = Omit<ChannelSelectMenu, "customID" | "channelTy
  * Create a {@link ComponentTypes.CHANNEL_SELECT | CHANNEL_SELECT} component.
  * Selection can be handled with {@link ClientEvents.interactionCreate}.
  * @param customID custom ID to handle interactions
- * @param props optional properties (disabled, id, maxValues, minValues, placeholder, defaultValues)
+ * @param props optional properties (defaultValues, disabled, id, maxValues, minValues, placeholder)
  * @returns a {@link RoleSelectMenu} object
  */
 export function ChannelSelect(customID: string, channelTypes: ChannelTypes[], props?: ChannelSelectProps): ChannelSelectMenu {
@@ -171,6 +171,7 @@ export type TextProps = Omit<TextDisplayComponent, "content" | "type">;
 /**
  * Create a {@link ComponentTypes.TEXT_DISPLAY | TEXT_DISPLAY} component.
  * @param content markdown text
+ * @param optional properties (id)
  * @returns a {@link TextDisplayComponent}
  */
 export function Text(content: string, props?: TextProps): TextDisplayComponent {
@@ -194,10 +195,11 @@ export type GalleryProps = Omit<MediaGalleryComponent, "items" | "type">;
 /**
  * Create a {@link ComponentTypes.MEDIA_GALLERY | MEDIA_GALLERY} component.
  * @param url media URL
- * @param props optional properties (description, id, spoiler)
+ * @param props optional properties (id)
  * @returns a {@link MediaGalleryComponent}
  */
 export function Gallery(items: MediaGalleryItem[] = [], props?: GalleryProps): MediaGalleryComponent {
+
 	return { ...props, items, type: 12 };
 }
 
@@ -230,6 +232,7 @@ export type SeparatorProps = Omit<SeparatorComponent, "divider" | "spacing" | "t
 /**
  * Create a non-divider {@link ComponentTypes.SEPARATOR | SEPARATOR} component.
  * @param spacing spacing size
+ * @param props optional properties (id)
  * @returns a {@link SeparatorComponent}
  */
 export function Spacer(spacing?: SeparatorSpacingSize, props?: SeparatorProps): SeparatorComponent {
@@ -238,6 +241,7 @@ export function Spacer(spacing?: SeparatorSpacingSize, props?: SeparatorProps): 
 /**
  * Create a divider {@link ComponentTypes.SEPARATOR | SEPARATOR} component.
  * @param spacing spacing size
+ * @param props optional properties (id)
  * @returns a {@link SeparatorComponent}
  */
 export function Divider(spacing?: SeparatorSpacingSize, props?: SeparatorProps): SeparatorComponent {
@@ -249,7 +253,7 @@ export type ContainerProps = Omit<ContainerComponent, "type" | "components">;
 /**
  * Create a {@link ComponentTypes.CONTAINER | CONTAINER} component.
  * @param items child components to appear in the container
- * @param props optional properties
+ * @param props optional properties (accentColor, id, spoiler)
  * @returns a {@link ContainerComponent}
  */
 export function Container(items: ContainerComponent["components"] = [], props?: ContainerProps): ContainerComponent {
