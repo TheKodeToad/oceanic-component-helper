@@ -60,7 +60,7 @@ Every component can take in additional properties - so fear not if you need to s
 ```js
 Container([Text("hi")], { accentColor: 0xFF0000 });
 ```
-With trickery you can even use properties which aren't supported yet - but I instead encourage you to [nag me to update the oceanic dependency](https://github.com/TheKodeToad/oceanic-component-helper/issues/new).
+You (should) be able to use new properties as soon as they are added if you have a recent enough oceanic.js version!
 
 The available component functions do not entirely reflect the Oceanic interfaces. For example:
 - Menu components do not have the `Menu` suffix
