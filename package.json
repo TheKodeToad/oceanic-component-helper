@@ -1,0 +1,33 @@
+{
+  "name": "oceanic-component-helper",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "",
+  "author": "TheKodeToad",
+  "license": "MIT",
+  "packageManager": "pnpm@10.7.1",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./esm.mjs",
+      "bun": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "prepare": "rimraf dist && tsc"
+  },
+  "keywords": [
+    "oceanic",
+    "oceanic.js",
+    "discord",
+    "components",
+    "components-v2",
+    "cv2"
+  ],
+  "devDependencies": {
+    "oceanic.js": "^1.12.0",
+    "typescript": "^5.8.3",
+    "rimraf": "^6.0.1"
+  }
+}
