@@ -258,7 +258,7 @@ export function Container(items: ContainerComponent["components"] = [], props?: 
 	return { ...props, components: items, type: 17 };
 }
 
-export type LabelProps = Omit<ModalLabel, "label" | "component">;
+export type LabelProps = Omit<ModalLabel, "type" | "label" | "component">;
 
 /**
  * Create a {@link ComponentTypes.LABEL | LABEL} component.
@@ -270,7 +270,7 @@ export function Label(label: string, component: ModalLabel["component"], props?:
 	return { ...props, label, component, type: 18 };
 }
 
-export type FileUploadProps = Omit<ModalFileUploadComponent, "customID">;
+export type FileUploadProps = Omit<ModalFileUploadComponent, "type" | "customID">;
 
 /**
  * Create a {@link ComponentTypes.FILE_UPLOAD | FILE_UPLOAD } component.
