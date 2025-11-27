@@ -23,48 +23,64 @@
  * SOFTWARE.
  */
 
-import { readFileSync } from "fs";
-import { actionRow, container, file, mediaGallery, mediaGalleryItem, paragraphTextInput, section, selectOption, separator, shortTextInput, stringSelectMenu, textButton, textDisplay, thumbnail } from "oceanic-component-helper";
-import { ApplicationCommandTypes, ButtonStyles, Client, ComponentTypes, InteractionTypes, MessageFlags, SeparatorSpacingSize } from "oceanic.js";
+import { FileUpload, Label, ParagraphInput, SelectOption, StringSelect } from "oceanic-component-helper";
+import { ApplicationCommandTypes, Client, InteractionTypes } from "oceanic.js";
 
 const client = new Client({
-    auth: "Bot [TOKEN]",
-    gateway: {
-        intents: [] // interactions need no intents
-    }
+	auth: "Bot " + process.env.BOT_TOKEN,
+	gateway: {
+		intents: [] // interactions need no intents
+	}
 });
 
-const GUILD_ID = "";
 client.on("ready", async() => {
-    console.log("Ready as", client.user.tag);
+	console.log("Ready as", client.user.tag);
 
-    await client.application.bulkEditGuildCommands(GUILD_ID, [
-        {
-            type: ApplicationCommandTypes.CHAT_INPUT,
-            name: "test",
-            description: "Test"
-        }
-    ]);
+	await client.application.bulkEditGlobalCommands([
+		{
+			type: ApplicationCommandTypes.CHAT_INPUT,
+			name: "test",
+			description: "Test"
+		}
+	]);
 });
 
 client.on("interactionCreate", async interaction => {
-    if (interaction.type === InteractionTypes.APPLICATION_COMMAND) {
-        if (interaction.data.name === "test") {
-            return interaction.createModal({
-                customID: "modal",
-                title: "Survey",
-                components: [
-                    shortTextInput("What's your favourite food?", "food", { minLength: 3 }),
-                    paragraphTextInput("Why?", "why", { minLength: 20 }),
-                ]
-            })
-        }
-    }
+	if (interaction.type === InteractionTypes.APPLICATION_COMMAND) {
+		if (interaction.data.name === "test") {
+			return interaction.createModal({
+				customID: "survey",
+				title: "Survey",
+				components: [
+					Label(
+						"What's your favourite favourite food?",
+						StringSelect("favourite_food", [
+							SelectOption("pineapple", "Pineapple"),
+							SelectOption("tomato", "Tomato"),
+							SelectOption("water", "Water"),
+						]),
+					),
+					Label(
+						"Write an essay explaining why",
+						ParagraphInput("essay", { minLength: 100 })
+					),
+					Label(
+						"Upload a file containing the same essay",
+						FileUpload("essay_file"),
+					)
+				]
+			})
+		}
+	} else if (interaction.type === InteractionTypes.MODAL_SUBMIT) {
+		if (interaction.data.customID === "survey") {
+			await interaction.reply({ content: "```\n" + JSON.stringify(interaction.data.components.raw) + "\n```" });
+		}
+	}
 });
 
 // An error handler
 client.on("error", (error) => {
-    console.error("Something went wrong:", error);
+	console.error("Something went wrong:", error);
 });
 
 // Connect to Discord

@@ -27,27 +27,26 @@
  */
 
 import { readFileSync } from "fs";
-import { actionRow, container, file, mediaGallery, mediaGalleryItem, section, selectOption, separator, stringSelectMenu, textButton, textDisplay, thumbnail } from "oceanic-component-helper";
-import { ApplicationCommandTypes, ButtonStyles, Client, ComponentTypes, InteractionTypes, MessageFlags, SeparatorSpacingSize } from "oceanic.js";
+import { ApplicationCommandTypes, Client, InteractionTypes, MessageFlags, SeparatorSpacingSize } from "oceanic.js";
+import { ActionRow, Container, Divider, File, Gallery, GalleryItem, Section, SelectOption, Spacer, StringSelect, Text, TextButton, Thumbnail } from "oceanic-component-helper";
 
 const client = new Client({
-    auth: "Bot [TOKEN]",
-    gateway: {
-        intents: [] // interactions need no intents
-    }
+	auth: "Bot " + process.env.BOT_TOKEN,
+	gateway: {
+		intents: [] // interactions need no intents
+	}
 });
 
-const GUILD_ID = "";
 client.on("ready", async() => {
-    console.log("Ready as", client.user.tag);
+	console.log("Ready as", client.user.tag);
 
-    await client.application.bulkEditGuildCommands(GUILD_ID, [
-        {
-            type: ApplicationCommandTypes.CHAT_INPUT,
-            name: "test",
-            description: "Test"
-        }
-    ]);
+	await client.application.bulkEditGlobalCommands([
+		{
+			type: ApplicationCommandTypes.CHAT_INPUT,
+			name: "test",
+			description: "Test"
+		}
+	]);
 });
 
 // See the components example for a further explanation of action row, button, and select components
@@ -55,54 +54,54 @@ client.on("ready", async() => {
 // All usages of Components V2 require the IS_COMPONENTS_V2 flag
 // When using Components V2 you cannot use content or embeds
 client.on("interactionCreate", async interaction => {
-    if (interaction.type === InteractionTypes.APPLICATION_COMMAND) {
-        if (interaction.data.name === "test") {
-            return interaction.createMessage({
-                flags: MessageFlags.IS_COMPONENTS_V2,
-                components: [
-                    actionRow([textButton("Button", "button")]),
-                    stringSelectMenu(
-                        "select",
-                        [selectOption("Option 1", "1"), selectOption("Option 2", "2")]
-                    ),
-                    container([
-                        actionRow([textButton("Button", "container_button")]),
-                        stringSelectMenu(
-                            "container_select",
-                            [selectOption("Option 1", "1"), selectOption("Option 2", "2")]
-                        ),
-                        mediaGallery([
-                            mediaGalleryItem("attachment://image.png", { description: "Oceanic Icon" }),
-                            mediaGalleryItem("https://i.furry.cool/DonPride.png", { description: "Donovan_DMC's Icon" })
-                        ]),
-                        textDisplay("Small separator with divider below"),
-                        separator({ spacing: SeparatorSpacingSize.SMALL, divider: true }),
-                        section(["Section Text"], thumbnail("attachment://image.png")),
-                        separator({ spacing: SeparatorSpacingSize.LARGE, divider: false }),
-                        section(["Large separator with no divider above"], thumbnail("https://i.oceanic.ws/icon.png")),
-                        section(["Even More Section Text"], textButton("Button", "container_section_button"))
-                    ]),
-                    file("file.txt"),
-                    mediaGallery([mediaGalleryItem("https://i.furry.cool/DonCoffee.png", { description: "Donovan Coffee" })])
-                ],
-                files: [
-                    {
-                        name: "image.png",
-                        contents: readFileSync(`${import.meta.dirname}/image.png`)
-                    },
-                    {
-                        name: "file.txt",
-                        contents: Buffer.from("Text File")
-                    }
-                ]
-            });
-        }
-    }
+	if (interaction.type === InteractionTypes.APPLICATION_COMMAND) {
+		if (interaction.data.name === "test") {
+			return interaction.createMessage({
+				flags: MessageFlags.IS_COMPONENTS_V2,
+				components: [
+					ActionRow([TextButton("Button", "button")]),
+					ActionRow([StringSelect(
+						"select",
+						[SelectOption("Option 1", "1"), SelectOption("Option 2", "2")]
+					)]),
+					Container([
+						ActionRow([TextButton("Button", "container_button")]),
+						ActionRow([StringSelect(
+							"container_select",
+							[SelectOption("Option 1", "1"), SelectOption("Option 2", "2")]
+						)]),
+						Gallery([
+							GalleryItem("attachment://image.png", { description: "Oceanic Icon" }),
+							GalleryItem("https://i.furry.cool/DonPride.png", { description: "Donovan_DMC's Icon" })
+						]),
+						Text("Small separator with divider below"),
+						Divider(SeparatorSpacingSize.SMALL),
+						Section(["Section Text"], Thumbnail("attachment://image.png")),
+						Spacer(SeparatorSpacingSize.LARGE),
+						Section(["Large separator with no divider above"], Thumbnail("https://i.oceanic.ws/icon.png")),
+						Section(["Even More Section Text"], TextButton("Button", "container_section_button"))
+					]),
+					File("file.txt"),
+					Gallery([GalleryItem("https://i.furry.cool/DonCoffee.png", { description: "Donovan Coffee" })])
+				],
+				files: [
+					{
+						name: "image.png",
+						contents: readFileSync(`${import.meta.dirname}/image.png`)
+					},
+					{
+						name: "file.txt",
+						contents: Buffer.from("Text File")
+					}
+				]
+			});
+		}
+	}
 });
 
 // An error handler
 client.on("error", (error) => {
-    console.error("Something went wrong:", error);
+	console.error("Something went wrong:", error);
 });
 
 // Connect to Discord
