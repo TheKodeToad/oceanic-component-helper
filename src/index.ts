@@ -1,6 +1,4 @@
-
-
-import type { ActionRowBase, ButtonStyles, ChannelSelectMenu, ChannelTypes, ClientEvents, Component, ComponentTypes, ContainerComponent, CreateMessageOptions, FileComponent, MediaGalleryComponent, MediaGalleryItem, MentionableSelectMenu, PremiumButton, RoleSelectMenu, SectionComponent, SelectOption, SeparatorComponent, SeparatorSpacingSize, StringSelectMenu, TextButton, TextDisplayComponent, TextInput, TextInputStyles, ThumbnailComponent, URLButton, UserSelectMenu } from "oceanic.js";
+import type { ActionRowBase, ButtonStyles, ChannelSelectMenu, ChannelTypes, ClientEvents, Component, ComponentTypes, ContainerComponent, CreateMessageOptions, FileComponent, MediaGalleryComponent, MediaGalleryItem, MentionableSelectMenu, ModalFileUploadComponent, ModalLabel, PremiumButton, RoleSelectMenu, SectionComponent, SelectOption, SeparatorComponent, SeparatorSpacingSize, StringSelectMenu, TextButton, TextDisplayComponent, TextInput, TextInputStyles, ThumbnailComponent, URLButton, UserSelectMenu } from "oceanic.js";
 
 export type ActionRowProps = Omit<ActionRowBase<never>, "components" | "type">;
 
@@ -74,7 +72,7 @@ export function SelectOption(label: string, value: string, props?: SelectOptionP
 	return { ...props, label, value };
 }
 
-export type TextInputProps = Omit<TextInput, "label" | "customID" | "style" | "type">;
+export type TextInputProps = Omit<TextInput, "customID" | "style" | "type">;
 
 /**
  * Create a {@link ComponentTypes.TEXT_INPUT | TEXT_INPUT} component with the {@link TextInputStyles.SHORT | SHORT} style.
@@ -84,8 +82,8 @@ export type TextInputProps = Omit<TextInput, "label" | "customID" | "style" | "t
  * @param props optional properties (id, maxLength, minLength, placeholder, required, value)
  * @returns a {@link TextInput} object
  */
-export function LineInput(label: string, customID: string, props?: TextInputProps): TextInput {
-	return { ...props, label, customID, style: 1 /* .SHORT */, type: 4 };
+export function LineInput(customID: string, props?: TextInputProps): TextInput {
+	return { ...props, customID, style: 1 /* .SHORT */, type: 4 };
 }
 
 /**
@@ -96,8 +94,8 @@ export function LineInput(label: string, customID: string, props?: TextInputProp
  * @param props optional properties (id, maxLength, minLength, placeholder, required, value)
  * @returns a {@link TextInput} object
  */
-export function ParagraphInput(label: string, customID: string, props?: TextInputProps): TextInput {
-	return { ...props, label, customID, style: 2 /* .PARAGRAPH */, type: 4 };
+export function ParagraphInput(customID: string, props?: TextInputProps): TextInput {
+	return { ...props, customID, style: 2 /* .PARAGRAPH */, type: 4 };
 }
 
 export type UserSelectProps = Omit<UserSelectMenu, "customID" | "type">;
@@ -258,4 +256,28 @@ export type ContainerProps = Omit<ContainerComponent, "type" | "components">;
  */
 export function Container(items: ContainerComponent["components"] = [], props?: ContainerProps): ContainerComponent {
 	return { ...props, components: items, type: 17 };
+}
+
+export type LabelProps = Omit<ModalLabel, "label" | "component">;
+
+/**
+ * Create a {@link ComponentTypes.LABEL | LABEL} component.
+ * @param component component to show underneath the label
+ * @param props optional properties (description, id)
+ * @returns a {@link ModalLabel}
+ */
+export function Label(label: string, component: ModalLabel["component"], props?: LabelProps): ModalLabel {
+	return { ...props, label, component, type: 18 };
+}
+
+export type FileUploadProps = Omit<ModalFileUploadComponent, "customID">;
+
+/**
+ * Create a {@link ComponentTypes.FILE_UPLOAD | FILE_UPLOAD } component.
+ * @param customID custom ID to handle interactions
+ * @param props optional properties (description, id)
+ * @returns a {@link ModalLabel}
+ */
+export function FileUpload(customID: string, props?: FileUploadProps): ModalFileUploadComponent {
+	return { ...props, customID, type: 19 };
 }

@@ -30,8 +30,8 @@
     "cv2"
   ],
   "devDependencies": {
-    "oceanic.js": "^1.12.0",
-    "typescript": "^5.8.3",
-    "rimraf": "^6.0.1"
+    "oceanic.js": "^1.13.0",
+    "rimraf": "^6.1.2",
+    "typescript": "^5.9.3"
   }
 }
